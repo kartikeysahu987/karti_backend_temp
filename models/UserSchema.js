@@ -10,11 +10,17 @@ const UserInformation = new mongoose.Schema({
         unique: true,
         validate:[ isEmail, "Please Enter the valid email"],
     },
-    Name:{
+    Name: {
         type: String,
-        required : [true, "Please Enter the Name"],
-        validate: [isAlpha, "Please Enter the valid Name"]
+        required: [true, "Please Enter the Name"],
+        validate: [
+            function(value) {
+                return isAlpha(value, "en-US", { ignore: " " });
+            },
+            "Please Enter a valid Name"
+        ]
     },
+    
     PhoneNumber:{
         type: String,
         required : [true, "Please Enter the Number"],
